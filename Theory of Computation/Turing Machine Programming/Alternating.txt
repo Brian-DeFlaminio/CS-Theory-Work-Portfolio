@@ -1,0 +1,63 @@
+//LOAD AN EXAMPLE TO TRY
+//then load an input and click play
+
+//Syntax:
+
+//-------CONFIGURATION
+name: Alternating Symbols
+init: q0
+accept: qAccept1, qAccept10, qAccept0, qAccept01
+
+//-------DELTA FUNCTION:
+//[current_state],[read_symbol]
+//[new_state],[write_symbol],[>|<|-]
+
+// < = left
+// > = right
+// - = hold
+// use underscore for blank cells
+
+//States and symbols are case-sensitive
+
+//Load your code and click COMPILE.
+//or load an example (top-right).
+
+//begin with 1 
+q0,1
+qAccept1,1,>
+
+//1 and then a 0
+qAccept1,0
+qAccept10,0,>
+
+//1 then a 1, reject
+qAccept1,1
+qReject,0,>
+
+//1 then 0 then 0, reject
+qAccept10,0
+qReject,0,>
+
+//1 then 0, then 1, loop back to qAccept1
+qAccept10,1
+qAccept1,1,>
+
+//begin with a 0
+q0,0
+qAccept0,0,>
+
+//0 then a 0, reject
+qAccept0,0
+qReject,0,>
+
+//0 then a 1
+qAccept0,1
+qAccept01,1,>
+
+//0 then a 1 then a 0
+qAccept01,0
+qAccept0,0,>
+
+//0 then a 1 then a 1, reject
+qAccept01,1
+qReject,1,>

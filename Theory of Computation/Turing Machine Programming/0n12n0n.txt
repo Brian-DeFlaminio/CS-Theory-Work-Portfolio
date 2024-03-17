@@ -1,0 +1,64 @@
+name: 0^n 1^2n 0^n
+init: q0
+accept: qAccept
+
+
+//can't start with 1
+q0,1
+qReject,1,>
+
+//start with 0
+q0,0
+qSeen0,-,>
+
+//skip past marked numbers
+q0,-
+q0,-,>
+
+q0,_
+qAccept,_,>
+
+//skip to next occurance of a 1
+qSeen0,0
+qSeen0,0,>
+
+qSeen0,-
+qSeen0,-,>
+
+//found a 1
+qSeen0,1
+qSeen01,-,>
+
+//if there's a 010 then its not in 0^n 1^2n 0^n
+qSeen01,0
+qReject,0,>
+
+qSeen01,-
+qSeen01,-,>
+
+//find a second 1
+qSeen01,1
+qSeen011,-,>
+
+//find another 0
+qSeen011,1
+qSeen011,1,>
+
+qSeen011,0
+qBackToBegin,-,<
+
+qSeen011,-
+qSeen011,-,>
+
+//back to beginning
+qBackToBegin,0
+qBackToBegin,0,<
+
+qBackToBegin,1
+qBackToBegin,1,<
+
+qBackToBegin,-
+qBackToBegin,-,<
+
+qBackToBegin,_
+q0,_,>

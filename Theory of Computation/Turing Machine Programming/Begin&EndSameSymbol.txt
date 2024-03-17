@@ -1,0 +1,71 @@
+//LOAD AN EXAMPLE TO TRY
+//then load an input and click play
+
+//Syntax:
+
+//-------CONFIGURATION
+name: Begin&EndSameSymbol
+init: q0
+accept: qAccept
+
+//-------DELTA FUNCTION:
+//[current_state],[read_symbol]
+//[new_state],[write_symbol],[>|<|-]
+
+// < = left
+// > = right
+// - = hold
+// use underscore for blank cells
+
+//States and symbols are case-sensitive
+
+//Load your code and click COMPILE.
+//or load an example (top-right).
+
+//seen 0
+q0,0
+qSeen0,0,>
+//seen 1
+q0,1
+qSeen1,1,>
+
+//only a zero, accept
+qSeen0,_
+qAccept,_,>
+
+//only a one, accept
+qSeen1,_
+qAccept,_,>
+
+//seen a zero in the first and last read positions, possible accept
+qSeen0,0
+qSeen0,0,>
+
+//seen a zero in the first and 1 in the last position, no possible accept until a zero is seen
+qSeen0,1
+qStart0Seen1,1,>
+
+//read a zero, keep seeing ones
+qStart0Seen1,1
+qStart0Seen1,1,>
+
+//read a zero at the beginning and end so far
+qStart0Seen1,0
+qSeen0,0,>
+////////////////Path complete/////////////////////
+
+//seen a 1 in the first and last positions, possible accept 
+qSeen1,1
+qSeen1,1,>
+
+//seen a 1 then a 0, no possible accept until a 1 is seen
+qSeen1,0
+qStart1Seen0,0,>
+
+//read another 0, keep going
+qStart1Seen0,0
+qStart1Seen0,0,>
+
+//read a 1 at the beginning and end so far
+qStart1Seen0,1
+qSeen1,1,>

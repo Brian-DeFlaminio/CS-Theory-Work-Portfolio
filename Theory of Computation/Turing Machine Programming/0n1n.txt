@@ -1,0 +1,71 @@
+//LOAD AN EXAMPLE TO TRY
+//then load an input and click play
+
+//Syntax:
+
+//-------CONFIGURATION
+name: 0^n_1^n_n>=0
+init: q0
+accept: qAccept
+
+//-------DELTA FUNCTION:
+//[current_state],[read_symbol]
+//[new_state],[write_symbol],[>|<|-]
+
+// < = left
+// > = right
+// - = hold
+// use underscore for blank cells
+
+//States and symbols are case-sensitive
+
+//Load your code and click COMPILE.
+//or load an example (top-right).
+
+
+//can't start with 1
+q0,1
+qReject,1,>
+
+//start with 0
+q0,0
+qSeen0,-,>
+
+//skip past marked numbers
+q0,-
+q0,-,>
+q0,_
+qAccept,_,>
+
+//skip to end
+qSeen0,0
+qSeen0,0,>
+qSeen0,1
+qSeen0,1,>
+qSeen0,-
+qSeen0,-,>
+
+//find the end 
+qSeen0,_
+qEnd,_,<
+
+//check for a 1
+qEnd,1
+qBegin,-,< //found one, replace with blank and go back to the beginning
+qEnd,0
+qReject,0,>
+qEnd,-
+qEnd,-,<
+
+//back to beginning 
+qBegin,0
+qBegin,0,<
+qBegin,1
+qBegin,1,<
+qBegin,-
+qBegin,-,<
+
+//reached beginning
+qBegin,_
+q0,_,>
+

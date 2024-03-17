@@ -1,0 +1,53 @@
+
+// --------- States -----------|
+// qCopy - copy to second tape |
+// qReturn - return first tape |
+// qTest - Test each character |
+// qaccept - accepting state   |
+//-----------------------------|
+
+name: Antipalindrome
+init: qCopy
+accept: qAccept
+
+//copy a zero into second tape
+qCopy,0,_
+qCopy,0,0,>,>
+
+//copy a one into second tape
+qCopy,1,_
+qCopy,1,1,>,>
+
+//reached the end of the string to copy
+qCopy,_,_
+qReturn,_,_,-,<
+
+qReturn,_,0
+qReturn,_,0,-,<
+
+qReturn,_,1
+qReturn,_,1,-,<
+
+//reached the beginning of the two tapes
+qReturn,_,_
+qTest,_,_,<,>
+
+//zero in both positions
+qTest,0,0
+qTest,0,0,<,>
+
+//one in both positions
+qTest,1,1
+qTest,1,1,<,>
+
+//it is a palindrome, reject
+qTest,_,_
+qReject,_,_,-,-
+
+//not a palindrome, accept
+qTest,1,0
+qAccept,1,0,<,>
+
+//not a palindrome, accept
+qTest,0,1
+qAccept,0,1,<,>

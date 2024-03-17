@@ -1,0 +1,79 @@
+//LOAD AN EXAMPLE TO TRY
+//then load an input and click play
+
+//Syntax:
+
+//-------CONFIGURATION
+name: Uneven1s&0s
+init: q0
+accept: qAccept
+
+//-------DELTA FUNCTION:
+//[current_state],[read_symbol]
+//[new_state],[write_symbol],[>|<|-]
+
+// < = left
+// > = right
+// - = hold
+// use underscore for blank cells
+
+//States and symbols are case-sensitive
+
+//Load your code and click COMPILE.
+//or load an example (top-right).
+
+//seen a 0, pair it with a 1
+q0,0
+qFind1,-,>
+
+//seen a 1, pair it with a 0
+q0,1
+qFind0,-,>
+
+q0,-
+q0,-,>
+
+//not a 1 keep going
+qFind1,0
+qFind1,0,>
+
+//found a 1, go back to the beginning and repeat
+qFind1,1
+qBackToBeginning,-,<
+
+//seeing blanks, keep going
+qFind1,-
+qFind1,-,>
+
+//reached the end without finding a pair, accept
+qFind1,_
+qAccept,_,>
+
+//not a 0 keep going 
+qFind0,1
+qFind0,1,>
+
+//found a 0, go back to beginning and repeat
+qFind0,0
+qBackToBeginning,-,<
+
+//seeing blanks, keep going
+qFind0,-
+qFind0,-,>
+
+//reached the end without finding a pair, accept
+qFind0,_
+qAccept,_,>
+
+//Restart from the beginning
+qBackToBeginning,0
+qBackToBeginning,0,<
+
+qBackToBeginning,1
+qBackToBeginning,1,<
+
+qBackToBeginning,-
+qBackToBeginning,-,<
+
+qBackToBeginning,_
+q0,_,>
